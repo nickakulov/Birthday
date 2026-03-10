@@ -14,7 +14,7 @@ body{
   text-align:center;
 }
 
-/* Фон звездное небо (canvas) */
+/* Фон звездное небо */
 #stars{
   position:fixed;
   top:0; left:0;
