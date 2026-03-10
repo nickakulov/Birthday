@@ -1,8 +1,8 @@
-// Главы
-const chapters=[
+// ==== Главы истории ====
+const chapters = [
   {
-    title:"CHAPTER 1: Stars",
-    text:`Far away, across the ocean, there's a girl.
+    title: "CHAPTER 1: Stars",
+    text: `Far away, across the ocean, there's a girl.
 She loves stars, funny memes, and her grumpy Russian bear.
 
 We lie in different fields, under different stars,
@@ -11,8 +11,8 @@ but we look at the same sky.
 And I know soon we'll lie next to each other.`
   },
   {
-    title:"CHAPTER 2: Distance",
-    text:`It's day for her. It's night for me.
+    title: "CHAPTER 2: Distance",
+    text: `It's day for her. It's night for me.
 
 While she drinks her morning tea,
 I'm already getting ready to sleep.
@@ -28,8 +28,8 @@ Love is when you're always connected,
 even through half the world.`
   },
   {
-    title:"CHAPTER 3: Memories",
-    text:`Remember how it all began?
+    title: "CHAPTER 3: Memories",
+    text: `Remember how it all began?
 
 Your voice messages in the morning.
 My poems at night.
@@ -43,8 +43,8 @@ It was recent.
 And it was always.`
   },
   {
-    title:"CHAPTER 4: The Meeting",
-    text:`Airport.
+    title: "CHAPTER 4: The Meeting",
+    text: `Airport.
 
 Crowds of people running somewhere.
 
@@ -66,8 +66,8 @@ turn into one second of happiness.
 This will be our summer, babe.`
   },
   {
-    title:"CHAPTER 5: Birthday",
-    text:`Sunshine, Happy Birthday.
+    title: "CHAPTER 5: Birthday",
+    text: `Sunshine, Happy Birthday.
 
 My girl, today is the day you came into this world.
 
@@ -104,69 +104,25 @@ I love you.
 Forever yours,
 Nick 🤍`
   }
-]
+];
 
-// Элементы
-let chapterIndex=0, charIndex=0
-const chapter=document.getElementById("chapter")
-const text=document.getElementById("text")
-const nextBtn=document.getElementById("nextBtn")
-const startBtn=document.getElementById("startBtn")
-const story=document.getElementById("story")
-const startScreen=document.getElementById("start-screen")
-const gallery=document.getElementById("gallery")
-const music=document.getElementById("music")
+// ==== DOM элементы ====
+let chapterIndex = 0;
+let charIndex = 0;
 
-// Галерея
-const photos=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg"]
-let photoIndex=0
-const galleryImage=document.getElementById("galleryImage")
+const chapter = document.getElementById("chapter");
+const text = document.getElementById("text");
 
-// Запуск истории
-startBtn.onclick=()=>{
-  startScreen.style.display="none"
-  story.classList.remove("hidden")
-  music.play()
-  showChapter()
-}
+const nextBtn = document.getElementById("nextBtn");
+const startBtn = document.getElementById("startBtn");
 
-function showChapter(){
-  text.innerHTML=""
-  charIndex=0
-  chapter.innerText=chapters[chapterIndex].title
-  typeWriter()
-}
+const story = document.getElementById("story");
+const startScreen = document.getElementById("start-screen");
+const gallery = document.getElementById("gallery");
 
-function typeWriter(){
-  let current=chapters[chapterIndex].text
-  if(charIndex<current.length){
-    text.innerHTML+=current.charAt(charIndex)
-    charIndex++
-    setTimeout(typeWriter,30)
-  } else {
-    nextBtn.style.display="inline-block"
-  }
-}
+const music = document.getElementById("music");
 
-// Продолжение
-nextBtn.onclick=()=>{
-  nextBtn.style.display="none"
-  chapterIndex++
-  if(chapterIndex===3){
-    story.classList.add("hidden")
-    gallery.classList.remove("hidden")
-    return
-  }
-  if(chapterIndex<chapters.length){
-    showChapter()
-  } else {
-    chapter.innerText=""
-    text.innerText="I love you more than words can explain 🤍"
-  }
-}
-
-// Галерея
-// Галерея с 9 фото
+// ==== Галерея фото ====
 const photos = [
   "photo1.jpg",
   "photo2.jpg",
@@ -178,67 +134,123 @@ const photos = [
   "photo8.jpg",
   "photo9.jpg"
 ];
+let galleryPhotoIndex = 0;
 
-let photoIndex = 0;
 const galleryImage = document.getElementById("galleryImage");
+const prevPhotoBtn = document.getElementById("prevPhoto");
+const nextPhotoBtn = document.getElementById("nextPhoto");
+const continueStoryBtn = document.getElementById("continueStory");
 
-document.getElementById("prevPhoto").onclick = () => {
-  photoIndex--;
-  if (photoIndex < 0) photoIndex = photos.length - 1;
-  galleryImage.src = photos[photoIndex];
+// ==== Запуск истории ====
+startBtn.onclick = () => {
+  startScreen.style.display = "none";
+  story.classList.remove("hidden");
+  music.play();
+  showChapter();
 };
 
-document.getElementById("nextPhoto").onclick = () => {
-  photoIndex++;
-  if (photoIndex >= photos.length) photoIndex = 0;
-  galleryImage.src = photos[photoIndex];
+// ==== Функция отображения главы ====
+function showChapter() {
+  text.innerHTML = "";
+  charIndex = 0;
+  chapter.innerText = chapters[chapterIndex].title;
+  typeWriter();
+}
+
+// ==== Печатающийся текст ====
+function typeWriter() {
+  let currentText = chapters[chapterIndex].text;
+  if (charIndex < currentText.length) {
+    text.innerHTML += currentText.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeWriter, 30);
+  } else {
+    nextBtn.style.display = "inline-block";
+  }
+}
+
+// ==== Кнопка Continue (текст) ====
+nextBtn.onclick = () => {
+  nextBtn.style.display = "none";
+  chapterIndex++;
+
+  // Показ галереи после 3 главы
+  if (chapterIndex === 3) {
+    story.classList.add("hidden");
+    gallery.classList.remove("hidden");
+    galleryPhotoIndex = 0;
+    galleryImage.src = photos[galleryPhotoIndex];
+    return;
+  }
+
+  if (chapterIndex < chapters.length) {
+    showChapter();
+  } else {
+    chapter.innerText = "";
+    text.innerText = "I love you more than words can explain 🤍";
+  }
 };
 
-document.getElementById("continueStory").onclick = () => {
+// ==== Галерея фото ====
+prevPhotoBtn.onclick = () => {
+  galleryPhotoIndex--;
+  if (galleryPhotoIndex < 0) galleryPhotoIndex = photos.length - 1;
+  galleryImage.src = photos[galleryPhotoIndex];
+};
+
+nextPhotoBtn.onclick = () => {
+  galleryPhotoIndex++;
+  if (galleryPhotoIndex >= photos.length) galleryPhotoIndex = 0;
+  galleryImage.src = photos[galleryPhotoIndex];
+};
+
+continueStoryBtn.onclick = () => {
   gallery.classList.add("hidden");
   story.classList.remove("hidden");
   showChapter();
 };
 
-// Сердечки
-const heartsContainer=document.querySelector(".hearts")
-setInterval(()=>{
-  const heart=document.createElement("div")
-  heart.className="heart"
-  heart.innerText="🤍"
-  heart.style.left=Math.random()*100+"%"
-  heart.style.fontSize=(15+Math.random()*20)+"px"
-  heart.style.animationDuration=(4+Math.random()*4)+"s"
-  heartsContainer.appendChild(heart)
-  setTimeout(()=>{heart.remove()},6000)
-},600)
+// ==== Сердечки ====
+const heartsContainer = document.querySelector(".hearts");
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "🤍";
+  heart.style.left = Math.random() * 100 + "%";
+  heart.style.fontSize = (15 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+  heartsContainer.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 600);
 
-// Звездное небо
-const canvas=document.getElementById("stars")
-const ctx=canvas.getContext("2d")
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-const starsArray=[]
-for(let i=0;i<150;i++){
+// ==== Звёздное небо ====
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const starsArray = [];
+for (let i = 0; i < 150; i++) {
   starsArray.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*1.2
-  })
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.2
+  });
 }
-function drawStars(){
-  ctx.clearRect(0,0,canvas.width,canvas.height)
-  ctx.fillStyle="white"
-  starsArray.forEach(s=>{
-    ctx.beginPath()
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-    ctx.fill()
-  })
-  requestAnimationFrame(drawStars)
-}
-drawStars()
-window.addEventListener("resize",()=>{
-  canvas.width=window.innerWidth
-  canvas.height=window.innerHeight
-})
 
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "white";
+  starsArray.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
