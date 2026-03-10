@@ -166,21 +166,39 @@ nextBtn.onclick=()=>{
 }
 
 // Галерея
-document.getElementById("prevPhoto").onclick=()=>{
-  photoIndex--
-  if(photoIndex<0) photoIndex=photos.length-1
-  galleryImage.src=photos[photoIndex]
-}
-document.getElementById("nextPhoto").onclick=()=>{
-  photoIndex++
-  if(photoIndex>=photos.length) photoIndex=0
-  galleryImage.src=photos[photoIndex]
-}
-document.getElementById("continueStory").onclick=()=>{
-  gallery.classList.add("hidden")
-  story.classList.remove("hidden")
-  showChapter()
-}
+// Галерея с 9 фото
+const photos = [
+  "photo1.jpg",
+  "photo2.jpg",
+  "photo3.jpg",
+  "photo4.jpg",
+  "photo5.jpg",
+  "photo6.jpg",
+  "photo7.jpg",
+  "photo8.jpg",
+  "photo9.jpg"
+];
+
+let photoIndex = 0;
+const galleryImage = document.getElementById("galleryImage");
+
+document.getElementById("prevPhoto").onclick = () => {
+  photoIndex--;
+  if (photoIndex < 0) photoIndex = photos.length - 1;
+  galleryImage.src = photos[photoIndex];
+};
+
+document.getElementById("nextPhoto").onclick = () => {
+  photoIndex++;
+  if (photoIndex >= photos.length) photoIndex = 0;
+  galleryImage.src = photos[photoIndex];
+};
+
+document.getElementById("continueStory").onclick = () => {
+  gallery.classList.add("hidden");
+  story.classList.remove("hidden");
+  showChapter();
+};
 
 // Сердечки
 const heartsContainer=document.querySelector(".hearts")
@@ -223,3 +241,4 @@ window.addEventListener("resize",()=>{
   canvas.width=window.innerWidth
   canvas.height=window.innerHeight
 })
+
